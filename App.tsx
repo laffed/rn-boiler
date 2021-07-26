@@ -1,25 +1,36 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar, Modal, Button} from 'react-native';
-import {Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
-import {Navigation} from '@navigation';
-import {Provider} from 'overmind-react';
-import {createOvermind} from 'overmind';
-import {config} from '@state';
+import {enableScreens} from "react-native-screens";
+import {config} from "@state";
+import {Provider as OvermindProvider} from "overmind-react";
+import {Provider as PaperProvider} from 'react-native-paper';
+import {createOvermind} from "overmind";
+import {theme} from '@styles';
+import RootNav from "./src/navigation"
+import {
+  SafeAreaProvider,
+  initialWindowMetrics,
+} from "react-native-safe-area-context"
 
-declare const global: {HermesInternal: null | {}};
+//React Navigation optimization
+//https://reactnavigation.org/docs/react-native-screens/
+enableScreens();
 
 const overmind = createOvermind(config, {
-  devtools: '192.168.0.136:3031'
-})
+  devtools: '<your_ip>:3031',
+  logProxies: true,
+});
 
 function App() {
   return (
-    <View>
-      <Text>Boiler</Text>
-    </View>
-  )
-};
-
-
+    <OvermindProvider value={overmind}>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <PaperProvider theme={theme}>
+          <RootNav />
+        </PaperProvider>
+      </SafeAreaProvider>
+    </OvermindProvider>
+  );
+}
 
 export default App;
