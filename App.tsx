@@ -21,7 +21,7 @@ const overmind = createOvermind(config, {
   logProxies: true,
 });
 
-function App() {
+export default function App() {
   return (
     <OvermindProvider value={overmind}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -33,4 +33,3 @@ function App() {
   );
 }
 
-export default App;
