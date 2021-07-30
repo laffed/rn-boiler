@@ -1,7 +1,12 @@
-export type ApiResponse = {
+export type ApiResponse<T> = {
   success: boolean;
   message: string;
-  data?: unknown;
+  data: T;
+}
+
+export type ApiError = {
+  success: false;
+  message: string;
 }
 
 export type AxiosResponse<T> = {

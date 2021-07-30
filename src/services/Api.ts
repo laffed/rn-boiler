@@ -1,5 +1,5 @@
 import axios, {AxiosInstance} from 'axios';
-import {Params, ApiResponse, AxiosResponse} from '@types';
+import {Params, ApiResponse, AxiosResponse, ApiError} from '@types';
 import {config} from '@core';
 
 class ApiClass {
@@ -7,7 +7,7 @@ class ApiClass {
     baseURL: config.baseURL,
   });
 
-  public async get(endpoint: string, params: Params): Promise<ApiResponse> {
+  public async get<T>(endpoint: string, params: Params): Promise<ApiResponse<T> | ApiError> {
     try {
       return this.handleSuccess(
         (await this.api.get(
@@ -20,9 +20,9 @@ class ApiClass {
     }
   }
 
-  public async post(endpoint: string, params: Params): Promise<ApiResponse> {
+  public async post<T>(endpoint: string, params: Params): Promise<ApiResponse<T> | ApiError> {
     try {
-      return this.handleSuccess(
+      return this.handleSuccess<T>(
         (await this.api.post(
           endpoint,
           {...params}
@@ -33,9 +33,9 @@ class ApiClass {
     }
   }
 
-  public async put(endpoint: string, params: Params): Promise<ApiResponse> {
+  public async put<T>(endpoint: string, params: Params): Promise<ApiResponse<T> | ApiError> {
     try {
-      return this.handleSuccess(
+      return this.handleSuccess<T>(
         (await this.api.put(
           endpoint,
           {...params}
@@ -46,9 +46,9 @@ class ApiClass {
     }
   }
 
-  public async delete(endpoint: string, params: Params): Promise<ApiResponse> {
+  public async delete<T>(endpoint: string, params: Params): Promise<ApiResponse<T> | ApiError> {
     try {
-      return this.handleSuccess(
+      return this.handleSuccess<T>(
         (await this.api.delete(
           endpoint,
           {...params}
@@ -59,11 +59,11 @@ class ApiClass {
     }
   }
 
-  protected handleSuccess<T>(res: AxiosResponse<T>): ApiResponse {
+  protected handleSuccess<T>(res: AxiosResponse<T>): ApiResponse<T> {
     return {success: true, message: '', data: res.data};
   }
 
-  protected handleError(err: string): ApiResponse {
+  protected handleError(err: string): ApiError {
     return {success: false, message: err}
   }
 
