@@ -5,7 +5,7 @@ import {AppStackParams} from '@types';
 
 type NavProps = StackNavigationProp<AppStackParams, 'Home'>;
 
-function Home({navigation}: {navigation: NavProps}) {
+export function Home({navigation}: {navigation: NavProps}) {
   return (
     <View>
       <Text>Home</Text>
@@ -18,4 +18,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;

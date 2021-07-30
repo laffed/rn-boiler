@@ -1,13 +1,8 @@
-type AppState = {
-  showOnboarding: boolean;
-  prevAppVersion: number;
-  showSplash: boolean;
-  splashMessage: string;
-}
+import {AppState} from "@types";
 
 export const state: AppState = {
   showOnboarding: true,
   prevAppVersion: 0,
   showSplash: false,
-  splashMessage: "Cooking up something good!"
+  splashMessage: "Loading..."
 }
